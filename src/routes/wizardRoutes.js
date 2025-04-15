@@ -1,10 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const wizardController = require("../controllers/wizardController");
+const upload = require("../config/upload.js"); // crie a pasta middleware e o arquivo upload.js
 
 router.get("/", wizardController.getAllWizards);
 router.get("/:id", wizardController.getWizard);
-router.post("/", wizardController.createWizard);
+
+router.post("/", upload.single("photo"), wizardController.createWizard);
+
+
 router.put("/:id", wizardController.updateWizard);
 router.delete("/:id", wizardController.deleteWizard);
 
